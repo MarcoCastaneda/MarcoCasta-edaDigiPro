@@ -58,7 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DLEF\DLEF.csproj">
-      <Project>{d96b6bbd-856d-495d-86fb-ead6422a6575}</Project>
+      <Project>{d80b7eb7-e064-43f6-9d68-c619cb0a75a8}</Project>
       <Name>DLEF</Name>
     </ProjectReference>
     <ProjectReference Include="..\ML\ML.csproj">

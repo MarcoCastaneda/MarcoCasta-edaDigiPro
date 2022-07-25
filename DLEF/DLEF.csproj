@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D96B6BBD-856D-495D-86FB-EAD6422A6575}</ProjectGuid>
+    <ProjectGuid>{D80B7EB7-E064-43F6-9D68-C619CB0A75A8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DLEF</RootNamespace>

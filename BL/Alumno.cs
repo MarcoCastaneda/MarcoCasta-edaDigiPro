@@ -16,7 +16,7 @@ namespace BL
                 {
                     using (DLEF.MCastanedaDigiProEntities context = new DLEF.MCastanedaDigiProEntities())
                     {
-                        var query = context.AlumnoAdd(alumno.Nombre, alumno.ApellidoPaterno, alumno.ApellidoMaterno);
+                        var query = context.AlumnoAdd(alumno.Nombre, alumno.ApellidoPaterno, alumno.ApellidoMaterno, alumno.Email, alumno.Password);
 
                         if (query >= 1)
                         {

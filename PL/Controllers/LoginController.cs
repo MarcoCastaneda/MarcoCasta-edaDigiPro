@@ -28,7 +28,7 @@ namespace PL.Controllers
                     ML.Alumno alumno = (ML.Alumno)result.Object;
                     if (alumno.Email == email && alumno.Password == password)
                     {
-                        return RedirectToAction("GetAll", "Alumno");
+                        return RedirectToAction("Index", "Alumno");
                     }
                     else
                     {

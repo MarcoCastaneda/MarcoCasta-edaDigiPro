@@ -27,6 +27,7 @@ namespace BL
 
                             alumnomateria.Materia = new ML.Materia();
                             alumnomateria.Materia.Nombre = obj.MateriaNombre;
+                            alumnomateria.Materia.IdMateria = obj.IdMateria.Value;
 
                             alumnomateria.Alumno = new ML.Alumno();
                             alumnomateria.Alumno.IdAlumno = obj.IdAlumno.Value;
@@ -154,7 +155,46 @@ namespace BL
 
 
 
+        //public static ML.Result GetAll()
+        //{
+        //    ML.Result result = new ML.Result();
+        //    try
+        //    {
+        //        using (DLEF.MCastanedaDigiProEntities context = new DLEF.MCastanedaDigiProEntities())
+        //        {
+        //            var query = context.AlumnoMateriaGetAll().ToList();
+        //            result.Objects = new List<object>();
+        //            if (query != null)
+        //            {
+        //                foreach (var obj in query)
+        //                {
+        //                    ML.AlumnoMateria alumnoMateria = new ML.AlumnoMateria();
+        //                    alumnoMateria.IdAlumnoMateria = obj.;
+        //                    alumnoMateria.Alumno.IdAlumno = obj.Nombre;
+        //                    alumnoMateria.Alumno.Nombre = obj.ApellidoPaterno;
+        //                    alumnoMateria.Materia.IdMateria = obj.ApellidoMaterno;
+        //                    alumnoMateria.Materia.Nombre = obj.ApellidoMaterno;
 
+        //                    result.Objects.Add(alumnoMateria);
+
+        //                }
+        //                result.Correct = true;
+        //            }
+        //            else
+        //            {
+        //                result.Correct = false;
+        //                result.ErrorMessage = "No se ha podido realizar la consulta";
+
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        result.Correct = false;
+        //        result.ErrorMessage = ex.Message;
+        //    }
+        //    return result;
+        //}
 
 
 

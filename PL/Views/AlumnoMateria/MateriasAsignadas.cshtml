@@ -3,7 +3,7 @@
     ViewBag.Title = "MateriasAsignadas";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>Productos</h2>
+<h2>Materias</h2>
 
 <div class="container">
     <div class="row">
@@ -50,12 +50,12 @@
                     Eliminar
                 </th>
                 <th class="text-center " scope="col">
-                    IdSucursalProducto
+                    IdAlumnoMateria
                 </th>
 
 
                 <th class="text-center " scope="col">
-                    Nombre de producto
+                    Nombre Matera
                 </th>
 
             </tr>
@@ -66,7 +66,7 @@
                     <td class="text-center"><a class="btn btn-danger glyphicon glyphicon-trash " href="@Url.Action("Delete", "AlumnoMateria", new { IdAlumnoMatera = alumnoMateria.IdAlumnoMateria})" onclick="return confirm('¿Estas seguro que deseas eliminar este registro?');"><i class="bi bi-trash3"></i></a></td>
 
                     <td class="text-center ">
-                        @alumnoMateria.IdAlumnoMateria
+                        @alumnoMateria.Materia.IdMateria
                     </td>
                     <td class="text-left ">
                         @alumnoMateria.Materia.Nombre

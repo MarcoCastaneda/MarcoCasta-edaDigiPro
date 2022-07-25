@@ -32,7 +32,7 @@
           <Property Name="Nombre" Type="varchar" MaxLength="50" />
           <Property Name="Costo" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
-        <Association Name="FK__AlumnoMat__IdAlu__35BCFE0A">
+        <Association Name="FK__AlumnoMat__IdAlu__239E4DCF">
           <End Role="Alumno" Type="Self.Alumno" Multiplicity="0..1" />
           <End Role="AlumnoMateria" Type="Self.AlumnoMateria" Multiplicity="*" />
           <ReferentialConstraint>
@@ -44,7 +44,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__AlumnoMat__IdMat__36B12243">
+        <Association Name="FK__AlumnoMat__IdMat__24927208">
           <End Role="Materia" Type="Self.Materia" Multiplicity="0..1" />
           <End Role="AlumnoMateria" Type="Self.AlumnoMateria" Multiplicity="*" />
           <ReferentialConstraint>
@@ -60,6 +60,8 @@
           <Parameter Name="Nombre" Type="varchar" Mode="In" />
           <Parameter Name="ApellidoPaterno" Type="varchar" Mode="In" />
           <Parameter Name="ApellidoMaterno" Type="varchar" Mode="In" />
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
         </Function>
         <Function Name="AlumnoDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdAlumno" Type="int" Mode="In" />
@@ -111,11 +113,11 @@
           <EntitySet Name="Alumno" EntityType="Self.Alumno" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AlumnoMateria" EntityType="Self.AlumnoMateria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Materia" EntityType="Self.Materia" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__AlumnoMat__IdAlu__35BCFE0A" Association="Self.FK__AlumnoMat__IdAlu__35BCFE0A">
+          <AssociationSet Name="FK__AlumnoMat__IdAlu__239E4DCF" Association="Self.FK__AlumnoMat__IdAlu__239E4DCF">
             <End Role="Alumno" EntitySet="Alumno" />
             <End Role="AlumnoMateria" EntitySet="AlumnoMateria" />
           </AssociationSet>
-          <AssociationSet Name="FK__AlumnoMat__IdMat__36B12243" Association="Self.FK__AlumnoMat__IdMat__36B12243">
+          <AssociationSet Name="FK__AlumnoMat__IdMat__24927208" Association="Self.FK__AlumnoMat__IdMat__24927208">
             <End Role="Materia" EntitySet="Materia" />
             <End Role="AlumnoMateria" EntitySet="AlumnoMateria" />
           </AssociationSet>
@@ -135,7 +137,7 @@
           <Property Name="ApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="AlumnoMaterias" Relationship="Self.FK__AlumnoMat__IdAlu__35BCFE0A" FromRole="Alumno" ToRole="AlumnoMateria" />
+          <NavigationProperty Name="AlumnoMaterias" Relationship="Self.FK__AlumnoMat__IdAlu__239E4DCF" FromRole="Alumno" ToRole="AlumnoMateria" />
         </EntityType>
         <EntityType Name="AlumnoMateria">
           <Key>
@@ -144,8 +146,8 @@
           <Property Name="IdAlumnoMateria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdAlumno" Type="Int32" />
           <Property Name="IdMateria" Type="Int32" />
-          <NavigationProperty Name="Alumno" Relationship="Self.FK__AlumnoMat__IdAlu__35BCFE0A" FromRole="AlumnoMateria" ToRole="Alumno" />
-          <NavigationProperty Name="Materia" Relationship="Self.FK__AlumnoMat__IdMat__36B12243" FromRole="AlumnoMateria" ToRole="Materia" />
+          <NavigationProperty Name="Alumno" Relationship="Self.FK__AlumnoMat__IdAlu__239E4DCF" FromRole="AlumnoMateria" ToRole="Alumno" />
+          <NavigationProperty Name="Materia" Relationship="Self.FK__AlumnoMat__IdMat__24927208" FromRole="AlumnoMateria" ToRole="Materia" />
         </EntityType>
         <EntityType Name="Materia">
           <Key>
@@ -154,9 +156,9 @@
           <Property Name="IdMateria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Costo" Type="Decimal" Precision="18" Scale="2" />
-          <NavigationProperty Name="AlumnoMaterias" Relationship="Self.FK__AlumnoMat__IdMat__36B12243" FromRole="Materia" ToRole="AlumnoMateria" />
+          <NavigationProperty Name="AlumnoMaterias" Relationship="Self.FK__AlumnoMat__IdMat__24927208" FromRole="Materia" ToRole="AlumnoMateria" />
         </EntityType>
-        <Association Name="FK__AlumnoMat__IdAlu__35BCFE0A">
+        <Association Name="FK__AlumnoMat__IdAlu__239E4DCF">
           <End Role="Alumno" Type="Self.Alumno" Multiplicity="0..1" />
           <End Role="AlumnoMateria" Type="Self.AlumnoMateria" Multiplicity="*" />
           <ReferentialConstraint>
@@ -168,7 +170,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__AlumnoMat__IdMat__36B12243">
+        <Association Name="FK__AlumnoMat__IdMat__24927208">
           <End Role="Materia" Type="Self.Materia" Multiplicity="0..1" />
           <End Role="AlumnoMateria" Type="Self.AlumnoMateria" Multiplicity="*" />
           <ReferentialConstraint>
@@ -184,11 +186,11 @@
           <EntitySet Name="Alumnoes" EntityType="Self.Alumno" />
           <EntitySet Name="AlumnoMaterias" EntityType="Self.AlumnoMateria" />
           <EntitySet Name="Materias" EntityType="Self.Materia" />
-          <AssociationSet Name="FK__AlumnoMat__IdAlu__35BCFE0A" Association="Self.FK__AlumnoMat__IdAlu__35BCFE0A">
+          <AssociationSet Name="FK__AlumnoMat__IdAlu__239E4DCF" Association="Self.FK__AlumnoMat__IdAlu__239E4DCF">
             <End Role="Alumno" EntitySet="Alumnoes" />
             <End Role="AlumnoMateria" EntitySet="AlumnoMaterias" />
           </AssociationSet>
-          <AssociationSet Name="FK__AlumnoMat__IdMat__36B12243" Association="Self.FK__AlumnoMat__IdMat__36B12243">
+          <AssociationSet Name="FK__AlumnoMat__IdMat__24927208" Association="Self.FK__AlumnoMat__IdMat__24927208">
             <End Role="Materia" EntitySet="Materias" />
             <End Role="AlumnoMateria" EntitySet="AlumnoMaterias" />
           </AssociationSet>
@@ -196,6 +198,8 @@
             <Parameter Name="Nombre" Mode="In" Type="String" />
             <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
             <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="AlumnoDelete">
             <Parameter Name="IdAlumno" Mode="In" Type="Int32" />

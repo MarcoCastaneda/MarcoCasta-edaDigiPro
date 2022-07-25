@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{F6EA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ML", "ML\ML.csproj", "{492871D8-8AE4-4D16-8B84-354B1D12C3B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLEF", "DLEF\DLEF.csproj", "{D96B6BBD-856D-495D-86FB-EAD6422A6575}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLEF", "DLEF\DLEF.csproj", "{D80B7EB7-E064-43F6-9D68-C619CB0A75A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{492871D8-8AE4-4D16-8B84-354B1D12C3B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{492871D8-8AE4-4D16-8B84-354B1D12C3B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{492871D8-8AE4-4D16-8B84-354B1D12C3B0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D96B6BBD-856D-495D-86FB-EAD6422A6575}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D96B6BBD-856D-495D-86FB-EAD6422A6575}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D96B6BBD-856D-495D-86FB-EAD6422A6575}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D96B6BBD-856D-495D-86FB-EAD6422A6575}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D80B7EB7-E064-43F6-9D68-C619CB0A75A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D80B7EB7-E064-43F6-9D68-C619CB0A75A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D80B7EB7-E064-43F6-9D68-C619CB0A75A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D80B7EB7-E064-43F6-9D68-C619CB0A75A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

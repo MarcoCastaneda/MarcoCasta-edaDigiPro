@@ -31,7 +31,7 @@ namespace DLEF
         public virtual DbSet<AlumnoMateria> AlumnoMaterias { get; set; }
         public virtual DbSet<Materia> Materias { get; set; }
     
-        public virtual int AlumnoAdd(string nombre, string apellidoPaterno, string apellidoMaterno)
+        public virtual int AlumnoAdd(string nombre, string apellidoPaterno, string apellidoMaterno, string email, string password)
         {
             var nombreParameter = nombre != null ?
                 new ObjectParameter("Nombre", nombre) :
@@ -45,7 +45,15 @@ namespace DLEF
                 new ObjectParameter("ApellidoMaterno", apellidoMaterno) :
                 new ObjectParameter("ApellidoMaterno", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AlumnoAdd", nombreParameter, apellidoPaternoParameter, apellidoMaternoParameter);
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AlumnoAdd", nombreParameter, apellidoPaternoParameter, apellidoMaternoParameter, emailParameter, passwordParameter);
         }
     
         public virtual int AlumnoDelete(Nullable<int> idAlumno)

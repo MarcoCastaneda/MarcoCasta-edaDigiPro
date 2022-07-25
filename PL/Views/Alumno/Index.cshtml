@@ -1,0 +1,311 @@
+﻿<div class="container">
+    <h2>Alumnos Registrados</h2>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="Modal();">Agregar</button><br /><br />
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Apellido Paterno
+                </th>
+                <th>
+                    Apellido Materno
+                </th>
+
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody class="tbody">
+        </tbody>
+    </table>
+</div>
+<div class="modal fade" id="ModalUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title" id="myModalLabel">Alumno</h4>
+            </div>
+
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="IdAlumno" placeholder="IdAlumno" disabled="disabled" />
+                    </div>
+                    <div class="form-group">
+                        <label class="Nombre">Nombre</label>
+                        <input type="text" class="form-control" id="Nombre" placeholder="Nombre" />
+                    </div>
+                    <div class="form-group">
+                        <label class="ApellidoPaterno">ApellidoPaterno</label>
+                        <input type="text" class="form-control" id="ApellidoPaterno" placeholder="ApellidoPaterno" />
+                    </div>
+                    <div class="form-group">
+                        <label class="ApellidoMaterno">ApelldioMaterno</label>
+                        <input type="text" class="form-control" id="ApellidoMaterno" placeholder="ApellidoMaterno" />
+                    </div>
+                    <div class="form-group">
+                        <label class="Email">Email</label>
+                        <input type="text" class="form-control" id="Email" placeholder="Email" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="Password">Password</label>
+                        <input type="text" class="form-control" id="Password" placeholder="Password" />
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary glyphicon-edit" id="btnUpdate" onclick="add()">Actualizar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+
+            <div class="modal" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Detalle</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <h5>
+                                Acción completada con éxito
+                            </h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" value="Regresar" data-dismiss="modal">Entendido</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+
+    <script src="~/Scripts/jquery-1.9.1.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script type="text/javascript">
+
+        //Load Data in Table when documents is ready
+        $(document).ready(function () {
+            loadData();
+        });
+
+        //Load Data function
+        function loadData() {
+            $.ajax({
+                url: "/Alumno/GetAll",
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    var html = '';
+                    $.each(result.Objects, function (key, alumno) {
+                        html += '<tr>';
+                        html += '<td>' + alumno.IdAlumno + '</td>';
+                        html += '<td>' + alumno.Nombre + '</td>';
+                        html += '<td>' + alumno.ApellidoPaterno + '</td>';
+                        html += '<td>' + alumno.ApellidoMaterno + '</td>';
+                        html += '<td><a href="#" onclick="return GetById(' + alumno.IdAlumno + ')">Edit</a> | <a href="#" onclick="Delele(' + alumno.IdAlumno + ')">Delete</a></td>';
+                        html += '</tr>';
+                    });
+                    $('.tbody').html(html);
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+
+
+        //Add Data Function
+        function Add(alumno) {
+
+            $.ajax({
+                type: 'POST',
+                url: 'Alumno/Add',
+                dataType: 'json',
+                data: JSON.stringify(alumno),
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    $('#myModal').modal();
+                    $('#ModalUpdate').modal('hide');
+                    GetAll();
+                }
+            });
+        };
+
+        function Modal() {
+            var mostrar = $('#ModalUpdate').modal('show');
+            Actualizar();
+
+
+
+        }
+        ////Function for getting the Data Based upon Employee ID
+        //function getbyID(EmpID) {
+        //    $('#Name').css('border-color', 'lightgrey');
+        //    $('#Age').css('border-color', 'lightgrey');
+        //    $('#State').css('border-color', 'lightgrey');
+        //    $('#Country').css('border-color', 'lightgrey');
+        //    $.ajax({
+        //        url: "/Home/getbyID/" + EmpID,
+        //        typr: "GET",
+        //        contentType: "application/json;charset=UTF-8",
+        //        dataType: "json",
+        //        success: function (result) {
+        //            $('#EmployeeID').val(result.EmployeeID);
+        //            $('#Name').val(result.Name);
+        //            $('#Age').val(result.Age);
+        //            $('#State').val(result.State);
+        //            $('#Country').val(result.Country);
+
+        //            $('#myModal').modal('show');
+        //            $('#btnUpdate').show();
+        //            $('#btnAdd').hide();
+        //        },
+        //        error: function (errormessage) {
+        //            alert(errormessage.responseText);
+        //        }
+        //    });
+        //    return false;
+        //}
+
+        ////function for updating employee's record
+        //function Update() {
+        //    var res = validate();
+        //    if (res == false) {
+        //        return false;
+        //    }
+        //    var empObj = {
+        //        EmployeeID: $('#EmployeeID').val(),
+        //        Name: $('#Name').val(),
+        //        Age: $('#Age').val(),
+        //        State: $('#State').val(),
+        //        Country: $('#Country').val(),
+        //    };
+        //    $.ajax({
+        //        url: "/Home/Update",
+        //        data: JSON.stringify(empObj),
+        //        type: "POST",
+        //        contentType: "application/json;charset=utf-8",
+        //        dataType: "json",
+        //        success: function (result) {
+        //            loadData();
+        //            $('#myModal').modal('hide');
+        //            $('#EmployeeID').val("");
+        //            $('#Name').val("");
+        //            $('#Age').val("");
+        //            $('#State').val("");
+        //            $('#Country').val("");
+        //        },
+        //        error: function (errormessage) {
+        //            alert(errormessage.responseText);
+        //        }
+        //    });
+        //}
+
+        ////function for deleting employee's record
+        //function Delele(ID) {
+        //    var ans = confirm("Are you sure you want to delete this Record?");
+        //    if (ans) {
+        //        $.ajax({
+        //            url: "/Home/Delete/" + ID,
+        //            type: "POST",
+        //            contentType: "application/json;charset=UTF-8",
+        //            dataType: "json",
+        //            success: function (result) {
+        //                loadData();
+        //            },
+        //            error: function (errormessage) {
+        //                alert(errormessage.responseText);
+        //            }
+        //        });
+        //    }
+        //}
+
+        //Function for clearing the textboxes
+        function Actualizar() {
+
+
+            var alumno = {
+                IdAlumno: $('#IdAlumno').val(''),
+                Nombre: $('#Nombre').val(''),
+                ApellidoPaterno: $('#ApellidoPaterno').val(''),
+                ApellidoMaterno: $('#ApellidoMaterno').val(''),
+                Email: $('#Email').val(''),
+                Password: $('#Password').val('')
+            }
+
+
+            if (alumno.IdAlumno == '') {
+                Add(alumno);
+
+            }
+            else {
+                Update(alumno);
+            }
+        }
+
+
+
+
+            ////Valdidation using jquery
+            //function validate() {
+            //    var isValid = true;
+            //    if ($('#Nombre').val().trim() == "") {
+            //        $('#Nombre').css('border-color', 'Red');
+            //        isValid = false;
+            //    }
+            //    else {
+            //        $('#Nombre').css('border-color', 'lightgrey');
+            //    }
+            //    if ($('#ApellidoPaterno').val().trim() == "") {
+            //        $('#ApellidoPaterno').css('border-color', 'Red');
+            //        isValid = false;
+            //    }
+            //    else {
+            //        $('#Age').css('border-color', 'lightgrey');
+            //    }
+            //    if ($('#State').val().trim() == "") {
+            //        $('#State').css('border-color', 'Red');
+            //        isValid = false;
+            //    }
+            //    else {
+            //        $('#State').css('border-color', 'lightgrey');
+            //    }
+            //    if ($('#Country').val().trim() == "") {
+            //        $('#Country').css('border-color', 'Red');
+            //        isValid = false;
+            //    }
+            //    else {
+            //        $('#Country').css('border-color', 'lightgrey');
+            //    }
+            //    return isValid;
+            //}
+       
+    </script>
+}
