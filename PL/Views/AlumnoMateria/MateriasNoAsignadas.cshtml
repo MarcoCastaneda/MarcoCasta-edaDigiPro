@@ -1,0 +1,80 @@
+﻿@model ML.AlumnoMateria
+@{
+    ViewBag.Title = "MateriasNoAsignadas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Productos</h2>
+
+<div class="container">
+
+    <div class="row">
+
+        @using (Html.BeginForm("AgregarMaterias", "AlumnoMateria", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="col">
+
+                @Html.LabelFor(model => model.Alumno.IdAlumno, new { @class = "control-label col-md-2 hidden" })
+
+
+                @Html.TextBoxFor(model => model.Alumno.IdAlumno, new { @class = "form-control hidden", @readonly = true })
+                @Html.ValidationMessageFor(model => model.Alumno.IdAlumno)
+            </div>
+
+            <div class="col">
+
+
+
+                @Html.LabelFor(model => model.Alumno.Nombre, new { @class = "control-label", @readonly = true })
+                @Html.TextBoxFor(model => model.Alumno.Nombre, new { @class = "form-control", @readonly = true })
+                @Html.ValidationMessageFor(model => model.Alumno.Nombre)
+
+            </div>
+
+
+            <br />
+
+            <div class="row" style="padding-top:30px">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th class="text-center">
+                                Selecciona
+                            </th>
+                            <th class="text-center " scope="col">
+                                Nombre
+                            </th>
+                            <th class="text-left" scope="col">
+                                Stock
+                            </th>
+                        </tr>
+                        @foreach (ML.AlumnoMateria alumnoMateria in Model.AlumnoMaterias)
+                        {
+                            <tr>
+
+                                <td class="text-center">
+                                    <input type="checkbox" value="@alumnoMateria.Materia.IdMateria" name="ListaAlumnos" />
+                                </td>
+
+
+                                <td class="text-center">
+                                    @alumnoMateria.Materia.Nombre
+                                </td>
+                                <td class="text-center">
+                                    @alumnoMateria.Materia.Costo
+                                </td>
+
+                            </tr>
+                        }
+                    </table>
+                    <div class="form-group col-md-12">
+                        <div class="text-right">
+                            <input class="btn btn-success" type="submit" value="Agregar" />
+                            <a class="btn btn-danger" href="@Url.Action("Delete", "AlumnoMateria", new { IdAlumno = Model.Alumno.IdAlumno })"> Regresar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
