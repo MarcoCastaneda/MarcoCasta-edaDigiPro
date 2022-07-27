@@ -119,9 +119,9 @@ namespace PL.Controllers
             return Json(result.Objects, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetbyId(int IdAlumno)
+        public JsonResult GetbyId(ML.Alumno alumno)
         {
-            var result = BL.AlumnoMateria.GetMateriaAsignada(IdAlumno);
+            var result = BL.AlumnoMateria.GetMateriaAsignada(alumno);
             return Json(result.Objects, JsonRequestBehavior.AllowGet);
         }
 

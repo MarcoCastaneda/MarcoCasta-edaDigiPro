@@ -8,14 +8,14 @@ namespace BL
 {
     public class AlumnoMateria
     {
-        public static ML.Result GetMateriaAsignada(int IdAlumno)
+        public static ML.Result GetMateriaAsignada(ML.Alumno alumno)
         {
             ML.Result result = new ML.Result();
             try
             {
                 using (DLEF.MCastanedaDigiProEntities context = new DLEF.MCastanedaDigiProEntities())
                 {
-                    var query = context.MateriasAsignadas(IdAlumno).ToList();
+                    var query = context.MateriasAsignadas(alumno.IdAlumno).ToList();
                     result.Objects = new List<object>();
 
                     if (query != null)
