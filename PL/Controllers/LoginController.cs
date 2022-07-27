@@ -13,8 +13,6 @@ namespace PL.Controllers
             public ActionResult Login()
             {
                 ML.Alumno alumno = new ML.Alumno();
-                alumno.Email = "Leo@gmail.com";
-                alumno.Password = "123";
                 return View(alumno);
             }
 
@@ -28,7 +26,7 @@ namespace PL.Controllers
                     ML.Alumno alumno = (ML.Alumno)result.Object;
                     if (alumno.Email == email && alumno.Password == password)
                     {
-                        return RedirectToAction("Index", "Alumno");
+                        return RedirectToAction("Index", "Home");
                     }
                     else
                     {

@@ -7,7 +7,7 @@
 <div class="contenedor">
     <div class="fila">
         <div class="col-md-12">
-            <h2>Materias</h2>
+            <h2>Alumnos</h2>
             <Hr />
         </div>
 
@@ -37,9 +37,12 @@
                 <thead>
                     <Tr>
                         <th class="text-center" scope="col">Editar</th>
-                        <th class="text-center" scope="col">IdMateria</th>
+                        <th class="text-center" scope="col">IdAlumno</th>
                         <th class="text-center" scope="col">Nombre</th>
-                        <th class="text-center" scope="col">Costo</th>
+                        <th class="text-center" scope="col">Apellido Paterno</th>
+                        <th class="text-center" scope="col">Apellido Materno</th>
+                        <th class="text-center" scope="col">Email </th>
+                        <th class="text-center" scope="col"> Password</th>
                         <th class="text-center" scope="col">Eliminar</th>
                     </Tr>
 
@@ -63,7 +66,7 @@
             <div class="modal-body">
                 <forma>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="IdMateria" placeholder="IdMateria" disabled="disabled" />
+                        <input type="text" class="form-control" id="IdAlumno" placeholder="IdAlumno" disabled="disabled" />
                     </div>
 
                     <div class="form-group">
@@ -71,8 +74,20 @@
                         <input type="text" class="form-control" id="Nombre" placeholder="Nombre" />
                     </div>
                     <div class="form-group">
-                        <label class="Costo">Costo</label>
-                        <input type="text" class="form-control" id="Costo" placeholder="Costo" />
+                        <label class="ApellidoPaterno">Apellido Paterno</label>
+                        <input type="text" class="form-control" id="ApellidoPaterno" placeholder="Apellido Paterno" />
+                    </div>
+                    <div class="form-group">
+                        <label class="ApellidoMaterno">Apellido Materno</label>
+                        <input type="text" class="form-control" id="ApellidoMaterno" placeholder="Apellido Materno" />
+                    </div>
+                    <div class="form-group">
+                        <label class="Email"> Email</label>
+                        <input type="text" class="form-control" id="Email" placeholder="Email" />
+                    </div>
+                    <div class="form-group">
+                        <label class="Password">Password</label>
+                        <input type="text" class="form-control" id="Password" placeholder="Password" />
                     </div>
 
 
@@ -129,19 +144,21 @@
 
         $(document).ready(function () { //click
             GetAll();
-            
+
         });
 
         function GetAll() {
             $.ajax({
                 type: 'GET',
-                url: '/Materia/Get',
+                url: '/Alumno/Get',
                 success: function (result) { //200 OK
                     $('#SubCategorias tbody').empty();
-                    $.each(result.Objects, function (i, materia) {
-                        var filas = '<tr>' + '<td class="text-center"> <button class="btn btn-primary" onclick="GetById(' + materia.IdMateria + ')"><span class="glyphicon glyphicon-retweet"" style="color:#FFFFFF"></span></button></td>' + '</a> ' + '</td>' + "<td  id='id' class='text-center'>" + materia.IdMateria + "</td>" + "<td class='text-center'>" + materia.Nombre + "</td>" + "<td class='text-center'>" + materia.Costo + "</td>"
+                    $.each(result.Objects, function (i, alumno) {
+                        var filas = '<tr>' + '<td class="text-center"> <button class="btn btn-primary" onclick="GetById(' + alumno.IdAlumno + ')"><span class="glyphicon glyphicon-retweet"" style="color:#FFFFFF"></span></button></td>' + '</a> ' + '</td>' + "<td  id='id' class='text-center'>" + alumno.IdAlumno + "</td>" + "<td class='text-center'>" + alumno.Nombre + "</td>" + "<td class='text-center'>" + alumno.ApellidoPaterno + "</td>" + "<td class='text-center'>" + alumno.ApellidoMaterno + "</td>" + "<td class='text-center'>" + alumno.Email + "</td>" + "<td class='text-center'>" + alumno.Password + "</td>"
 
-                            + '<td class="text-center"> <button class="btn btn-primary" onclick="Eliminar(' + materia.IdMateria + ')"><span class="glyphicon glyphicon-trash" style="color:#FFFFFF"></span></button></td>'
+
+
+                            + '<td class="text-center"> <button class="btn btn-primary" onclick="Eliminar(' + alumno.IdAlumno + ')"><span class="glyphicon glyphicon-trash" style="color:#FFFFFF"></span></button></td>'
 
                             + "</tr>";
                         $("#SubCategorias tbody").append(filas);
@@ -156,65 +173,68 @@
 
         function Modal() {
             var mostrar = $('#ModalUpdate').modal('show');
-            IniciarMateria();
+            IniciarAlumno();
 
         }
 
 
         function Actualizar() {
-            var materia = {
-                IdMateria: $('#IdMateria').val(),
+            var alumno = {
+                IdAlumno: $('#IdAlumno').val(),
                 Nombre: $('#Nombre').val(),
-                Costo: $('#Costo').val()
-               
+                ApellidoPaterno: $('#ApellidoPaterno').val(),
+                ApellidoMaterno: $('#ApellidoMaterno').val(),
+                Email: $('#Email').val(),
+                Password: $('#Password').val()
+                
+
 
             }
 
-            if (materia.IdMateria == '') {
-                Add(materia);
+            if (alumno.IdAlumno == '') {
+                Add(alumno);
 
             }
             else {
-                Update(materia);
+                Update(alumno);
             }
         }
 
-        function IniciarMateria() {
+        function IniciarAlumno() {
 
-            var materia = {
-                IdMateria: $('#IdMateria').val(''),
+            var alumno = {
+                IdMateria: $('#IdAlumno').val(''),
                 Nombre: $('#Nombre').val(''),
-                Costo: $('#Costo').val('')
-               
+                ApellidoPaterno: $('#ApellidoPaterno').val(''),
+                ApellidoMaterno: $('#ApelldioMaterno').val(''),
+                Email: $('#Email').val(''),
+                Password: $('#Password').val('')
+
             }
         }
 
-        function Add(materia) {
+        function Add(alumno) {
 
             $.ajax({
                 type: 'POST',
-                url: '/Materia/Add',
+                url: '/Alumno/Add',
                 dataType: 'json',
-                data: JSON.stringify(materia),
+                data: JSON.stringify(alumno),
                 contentType: 'application/json; charset=utf-8',
                 success: function (result) {
                     $('#myModal').modal();
                     $('#ModalUpdate').modal('hide');
                     GetAll();
-                },
-                error: function (result) {
-                    alert('Error al agregar la materia');
-                    $('#ModalUpdate').modal('hide');
                 }
             });
         };
 
-        function Eliminar(IdMateria) {
+        function Eliminar(IdAlumno) {
 
             if (confirm("¿Estas seguro de eliminar la materia seleccionado?")) {
                 $.ajax({
                     type: 'GET',
-                    url: '/Materia/Delete/?IdMateria=' + IdMateria,
+                    url: '/Alumno/Delete/?IdAlumno=' + IdAlumno,
                     success: function (result) {
                         $('#myModal').modal();
                         GetAll();
@@ -229,15 +249,18 @@
 
 
 
-        function GetById(IdMateria) {
+        function GetById(IdAlumno) {
             $.ajax({
                 type: 'GET',
-                url: '/Materia/GetById/?IdMateria=' + IdMateria,
+                url: '/Alumno/GetById/?IdAlumno=' + IdAlumno,
                 success: function (result) {
-                    $('#IdMateria').val(result.Object.IdMateria);
+                    $('#IdAlumno').val(result.Object.IdAlumno);
                     $('#Nombre').val(result.Object.Nombre);
-                    $('#Costo').val(result.Object.Costo);
-                  
+                    $('#ApelldoPaterno').val(result.Object.ApellidoPaterno);
+                    $('#ApellidoMaterno').val(result.Object.ApellidoMaterno);
+                    $('#Email').val(result.Object.Email);
+                    $('#Password').val(result.Object.Password);
+
                     $('#ModalUpdate').modal('show');
                 },
                 error: function (result) {
@@ -249,13 +272,13 @@
 
         }
 
-        function Update(materia) {
+        function Update(alumno) {
 
             $.ajax({
                 type: 'POST',
-                url: '/Materia/Update?IdMateria=' + IdMateria,
+                url: '/Alumno/Update?IdAlumno=' + IdAlumno,
                 datatype: 'json',
-                data: JSON.stringify(materia),
+                data: JSON.stringify(alumno),
                 contentType: 'application/json; charset=utf-8',
                 success: function (result) {
                     $('#myModal').modal();

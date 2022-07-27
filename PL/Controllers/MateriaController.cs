@@ -9,70 +9,86 @@ namespace PL.Controllers
 {
     public class MateriaController : Controller
     {
-       
-            public ActionResult GetAll()
-            {
-                ML.Result result = BL.Materia.GetAll();
-                ML.Materia materia = new ML.Materia();
+        //
+        // GET: /Materia/
+        [HttpGet]
+        public ActionResult Getall()
+        {
+            return View();
+        }
 
-                if (result.Correct)
+        [HttpGet]
+        public ActionResult Form()
+        {
+            return View(new ML.Materia());
+        }
+
+        [HttpGet]
+        public JsonResult Get()
+        {
+            ML.Result result = BL.Materia.GetAll();
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetById(int IdMateria)
+        {
+            ML.Result result = BL.Materia.GetById(IdMateria);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult Add(ML.Materia materia)
+        {
+            char[] ValidacionNombreMateria = System.Configuration.ConfigurationManager.AppSettings["ValidacionNombreMateria"].ToCharArray();
+            // &<>/
+            if (materia.Nombre != null)
+            {
+                foreach (char caracter in ValidacionNombreMateria)
                 {
-                    materia.Materias = result.Objects;
+
+
+                    materia.Nombre = materia.Nombre.Replace(caracter.ToString(), "");
+
                 }
-
-
-                return View(materia);
-            }
-
-
-            [HttpGet]
-            public ActionResult Form(int? IdProducto)
-            {
-
-                ML.Materia materia = new ML.Materia();
-                if (IdProducto == null)
+                if (materia.Nombre != "")
                 {
-                    return View(materia);
+                    ML.Result result = BL.Materia.Add(materia);
+                    return Json(result, JsonRequestBehavior.AllowGet);
+
                 }
                 else
                 {
-                    ML.Result result = new ML.Result();
-
-                    if (result.Correct)
-                    {
-
-                    }
+                    return Json(null, JsonRequestBehavior.AllowGet);
 
                 }
-                return View(materia);
             }
-
-
-            [HttpPost]
-            public ActionResult Form(ML.Materia materia)
+            else
             {
-
-
-
-                ML.Result result = new ML.Result();
-               
-                if (materia.IdMateria == 0)
-                {
-                    result = BL.Materia.Add(materia);
-
-
-                    if (result.Correct)
-                    {
-                        ViewBag.Mensaje = "El alumno se ha agregado";
-                    }
-                    else
-                    {
-                        ViewBag.Mensaje = "El alumno NO se ha agregado";
-                    }
-                }
-                return PartialView("Modal");
-
+                return Json(null, JsonRequestBehavior.AllowGet);
             }
-         
+
+
+
+        }
+
+
+        [HttpPost]
+        public JsonResult Update(ML.Materia materia)
+        {
+            ML.Result result = BL.Materia.Update(materia);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult Delete(ML.Materia materia)
+        {
+            ML.Result result = BL.Materia.Delete(materia);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
+
+}

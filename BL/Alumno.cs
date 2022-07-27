@@ -45,7 +45,7 @@ namespace BL
                 {
                     using (DLEF.MCastanedaDigiProEntities context = new DLEF.MCastanedaDigiProEntities())
                     {
-                        var query = context.AlumnoUpdate(alumno.IdAlumno, alumno.Nombre, alumno.ApellidoPaterno, alumno.ApellidoMaterno);
+                        var query = context.AlumnoUpdate(alumno.IdAlumno, alumno.Nombre, alumno.ApellidoPaterno, alumno.ApellidoMaterno, alumno.Email, alumno.Password);
 
                     if (query >= 1)
                         {
@@ -113,6 +113,8 @@ namespace BL
                             alumno.Nombre = obj.Nombre;
                             alumno.ApellidoPaterno = obj.ApellidoPaterno;
                             alumno.ApellidoMaterno = obj.ApellidoMaterno;
+                            alumno.Email = obj.Email;
+                            alumno.Password = obj.Password;
 
                             result.Object = alumno;
                             result.Correct = true;
@@ -153,6 +155,8 @@ namespace BL
                             alumno.Nombre = obj.Nombre;
                             alumno.ApellidoPaterno = obj.ApellidoPaterno;
                             alumno.ApellidoMaterno = obj.ApellidoMaterno;
+                            alumno.Email = obj.Email;
+                            alumno.Password = obj.Password;
 
                             result.Objects.Add(alumno);
 

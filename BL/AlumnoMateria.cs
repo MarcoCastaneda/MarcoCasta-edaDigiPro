@@ -23,7 +23,7 @@ namespace BL
                         foreach (var obj in query)
                         {
                             ML.AlumnoMateria alumnomateria = new ML.AlumnoMateria();
-                            alumnomateria.IdAlumnoMateria = obj.IdAlumno.Value;
+                            alumnomateria.IdAlumnoMateria = obj.IdAlumnoMateria;
 
                             alumnomateria.Materia = new ML.Materia();
                             alumnomateria.Materia.Nombre = obj.MateriaNombre;
@@ -31,6 +31,7 @@ namespace BL
 
                             alumnomateria.Alumno = new ML.Alumno();
                             alumnomateria.Alumno.IdAlumno = obj.IdAlumno.Value;
+                            alumnomateria.Alumno.Nombre = obj.AlumnoNombre;
 
                             result.Objects.Add(alumnomateria);
                             result.Correct = true;
@@ -54,16 +55,16 @@ namespace BL
             }
             return result;
         }
-        public static ML.Result Delete(ML.AlumnoMateria alumnomateria)
+        public static ML.Result Delete(int IdAlumnoMateria)
         {
             ML.Result result = new ML.Result();
             try
             {
                 using (DLEF.MCastanedaDigiProEntities context = new DLEF.MCastanedaDigiProEntities())
                 {
-                    var query = context.AlumnoMateriaDelete(alumnomateria.IdAlumnoMateria);
+                    var query = context.AlumnoMateriaDelete(IdAlumnoMateria);
 
-                    if (query >= 0)
+                    if (query >= 1)
                     {
                         result.Correct = true;
                     }

@@ -1,0 +1,299 @@
+﻿@model ML.Result
+
+<br />
+<div class="container">
+
+    <div class="row">
+        <h2> Asignación de Materias a un alumno</h2>
+
+    </div>
+</div>
+<br />
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+            <table id="Alumnos" class="table table-bordered" border="1">
+                <thead>
+                    <tr>
+                        <th class="text-center" scope="col">
+                            Materias Asignadas
+                        </th>
+
+                        <th class="text-center" scope="col">
+                            Nombre del Alumno
+                        </th>
+
+                        <th class="text-center" scope="col">
+                            Apellido Paterno
+                        </th>
+
+                        <th class="text-center" scope="col">
+                            Apellido Materno
+                        </th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div class="container body-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="modal fade" id="ModalMateriasAsignadas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <h4 class="modal-title" id="myModalLabel">Materias</h4>
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                        </div>
+
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="IdAlumno" placeholder="Id" disabled="disabled" />
+                                </div>
+
+                                <table id="Materias" class="table table-bordered" border="1">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" scope="col">
+                                                Eliminar
+                                            </th>
+
+                                            <th class="text-center" scope="col">
+                                                Nombre de la Materia
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" id="btnUpdate" onclick="AddMateria()">Agregar</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalMateriasNoAsignadas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h4 class="modal-title" id="myModalLabel">Materias</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+
+            <div class="modal-body">
+                <form>
+                    <table id="MateriasNoAsignadas" class="table table-bordered" border="1">
+                        <thead>
+                            <tr>
+                                <th class="text-center" scope="col">
+                                    Agregar
+                                </th>
+
+                                <th class="text-center" scope="col">
+                                    Nombre de la Materia
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="btnUpdate" onclick="GetId()">Agregar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="modal" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Detalle</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <h5>
+                                Acción completada con éxito
+                            </h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" value="Regresar" data-dismiss="modal" onclick="loadData()">Regresar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        loadData();
+    });
+
+    //Load Data function
+
+    function loadData() {
+        $.ajax({
+
+            type: 'GET',
+            url: '/AlumnoMateria/GetAll',
+            dataType: "json",
+            success: function (data) {
+
+                $('#Alumnos tbody').empty();
+                $.each(data, function (i, alum) {
+                    var filas = "<tr>"
+                        + '<td  class="text-center" > <a href="#" onclick="return GetById(' + alum.IdAlumno + ')" class= " btn btn-primary glyphicon glyphicon-education"> </a>    </td>'
+                        + "<td class='text-center'>" + alum.Nombre + "</ td>"
+                        + "<td class='text-center'>" + alum.ApellidoPaterno + "</td>"
+                        + "<td class='text-center'>" + alum.ApellidoMaterno + "</td>"
+                        + "</tr>";
+                    $("#Alumnos tbody").append(filas);
+                });
+            }
+        });
+    };
+
+    function GetById(IdAlumno) {
+
+        var alumnosItem = {
+            IdAlumno: IdAlumno
+        }
+
+        $.ajax({
+
+            type: 'POST',
+            url: '/AlumnoMateria/GetById/?IdAlumno=' + IdAlumno,
+            datatype: 'json',
+            data: alumnosItem,
+
+            success: function (result) {
+
+                $('#Materias tbody').empty();
+                $.each(result, function (i, alumMat) {
+                    $('#IdAlumno').val(alumnosItem.IdAlumno);
+                    var filas = "<tr>"
+                        + '<td  class="text-center" > <a href="#" onclick="return Delete(' + alumMat.IdAlumnoMateria + ')" class= " btn btn-danger"> </a>    </td>'
+                        + "<td class='text-center'>" + alumMat.Materia.Nombre + "</ td>"
+                        + "</tr>";
+                    $("#Materias tbody").append(filas);
+                });
+                $('#ModalMateriasAsignadas').modal('show');
+            }
+        });
+    }
+
+    function Delete(subcat) {
+        if (confirm("Estas seguro de eliminar la subcategoria seleccionada ?")) {
+            var alumnosMateriaItem = {
+                IdAlumnoMateria: subcat
+            }
+
+            $('#ModalMateriasAsignadas').modal('hide');
+            $.ajax({
+                type: 'POST',
+                url: '/AlumnoMateria/Delete/?IdAlumnoMateria=' + alumnosMateriaItem.IdAlumnoMateria,
+                datatype: 'json',
+                data: alumnosMateriaItem,
+                success: function (data) {
+                    $('#myModal').modal();
+                    //Console(respond);
+                }
+            });
+        };
+    };
+
+    function GetId(subcat) {
+
+        var checks = document.getElementsByClassName('checked')
+        var str = '';
+
+        for (i = 0; i < 6; i++) {
+
+            if (checks[i].checked === true) {
+                var alumnosMateriaItem = {
+                    alumno:
+                        {
+                            IdAlumno: $('#IdAlumno').val(),
+                        },
+                    materia:
+                        {
+                            IdMateria: checks[i].value,
+
+                        }
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: '/AlumnoMateria/Add',
+                    datatype: 'json',
+                    data: alumnosMateriaItem,
+                    success: function (result) {
+                        alert('Se agrego una nueva materia')
+                    }
+                });
+            }
+        }
+    };
+
+    function AddMateria() {
+        var alumnosItem = {
+            IdAlumno: $('#IdAlumno').val()
+        }
+
+        $.ajax({
+
+            type: 'POST',
+            url: '/AlumnoMateria/GetMateriasNoAsignadas/?IdAlumno=' + IdAlumno,
+            datatype: 'json',
+            data: alumnosItem,
+
+            success: function (result) {
+
+                $('#MateriasNoAsignadas tbody').empty();
+                $.each(result, function (i, subcat) {
+                    var SubCategoria = subcat
+                    var filas = "<tr>"
+                       + '<td>  <input type="checkbox" class="checked" value=' + subcat.Materia.IdMateria + ' />    </td>'
+                        + "<td class='text-center'>" + subcat.Materia.Nombre + "</ td>"
+                        + "</tr>";
+                    $("#MateriasNoAsignadas tbody").append(filas);
+
+                });
+                $('#ModalMateriasNoAsignadas').modal('show');
+            }
+        });
+    };
+</script>
+
+

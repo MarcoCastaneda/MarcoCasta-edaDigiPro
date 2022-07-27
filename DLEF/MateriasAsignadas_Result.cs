@@ -13,6 +13,7 @@ namespace DLEF
     
     public partial class MateriasAsignadas_Result
     {
+        public int IdAlumnoMateria { get; set; }
         public Nullable<int> IdAlumno { get; set; }
         public string AlumnoNombre { get; set; }
         public string ApellidoPaterno { get; set; }

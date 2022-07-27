@@ -179,10 +179,12 @@
     <Content Include="Views\AlumnoMateria\MateriasAsignadas.cshtml" />
     <Content Include="Views\AlumnoMateria\MateriasNoAsignadas.cshtml" />
     <Content Include="Views\AlumnoMateria\Modal.cshtml" />
-    <Content Include="Views\Alumno\Index.cshtml" />
+    <Content Include="Views\Alumno\GetAll.cshtml" />
     <Content Include="Views\Alumno\Form.cshtml" />
     <Content Include="Views\Alumno\Modal.cshtml" />
     <Content Include="Views\Alumno\GetAll1.cshtml" />
+    <Content Include="Views\AlumnoMateria\AlumnoMateria.cshtml" />
+    <Content Include="Views\AlumnoMateria\GetAllAlumno.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

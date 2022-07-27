@@ -20,8 +20,11 @@
 
             <!-- Login Form -->
             <form>
-                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @id = "txtEmail", autofocus = "true", @placeholder = "Email" })
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @id = "txtEmail", @onkeypress = "return validarEmail(event, 'lblEmailError'" })                @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Email)
+
                 @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @id = "txtPassword", @placeholder = "Password" })
+
                 <input type="submit" class="fadeIn fourth" value="Log In">
             </form>
 
@@ -30,4 +33,37 @@
 
         </div>
     </div>
+}
+
+
+
+@section Scripts
+{
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/Scripts/jquery-1.9.1.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script type="text/javascript">
+
+
+                     function validarEmail()
+                     {
+                            var txtEmail = $("#txtEmail").val();
+                            var regularExpression = /^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/
+
+                            if (regularExpression.test(txtEmail))
+                            {
+                                //document.getElementById("lblEmailError").innerHTML = "";
+                                return true;
+                            }
+                            else
+                            {
+                                $("#lblEmailError").css("color","red");
+                                $("#lblEmailError").removeAttr("class");
+                              /*  document.getElementById("lblEmailError").innerHTML = "Correo invalido";*/
+                                return false;
+                            }
+                     }
+
+    </script>
 }

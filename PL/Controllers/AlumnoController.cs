@@ -8,37 +8,61 @@ namespace PL.Controllers
 {
     public class AlumnoController : Controller
     {
-        ML.Alumno alumno = new ML.Alumno();
-        // GET: Home  
-        public ActionResult Index()
+       
+        // GET: /Alumno/
+        [HttpGet]
+        public ActionResult Getall()
         {
             return View();
         }
-        public JsonResult GetAll()
+
+        [HttpGet]
+        public ActionResult Form()
         {
-            return Json(BL.Alumno.GetAll(), JsonRequestBehavior.AllowGet);
+            return View(new ML.Alumno());
         }
+
+        [HttpGet]
+        public JsonResult Get()
+        {
+            ML.Result result = BL.Alumno.GetAll();
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetById(int IdAlumno)
+        {
+            ML.Result result = BL.Alumno.GetById(IdAlumno);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public JsonResult Add(ML.Alumno alumno)
         {
-            return Json(BL.Alumno.Add(alumno), JsonRequestBehavior.AllowGet);
+            ML.Result result = BL.Alumno.Add(alumno);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetbyID(int IdAlumno)
-        {
-            var Alumno = BL.Alumno.GetById(IdAlumno);
-            return Json(Alumno, JsonRequestBehavior.AllowGet);
-        }
+
+        [HttpPost]
         public JsonResult Update(ML.Alumno alumno)
         {
-            return Json(BL.Alumno.Update(alumno), JsonRequestBehavior.AllowGet);
+            ML.Result result = BL.Alumno.Update(alumno);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult Delete(int IdAlumno)
+
+        [HttpGet]
+        public JsonResult Delete(ML.Alumno alumno)
         {
-            return Json(BL.Alumno.Delete(alumno), JsonRequestBehavior.AllowGet);
+            ML.Result result = BL.Alumno.Delete(alumno);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
-    
 
 
-    [HttpGet]
+
+        [HttpGet]
     public ActionResult GetAll1()
     {
         ML.Result result = BL.Alumno.GetAll();
